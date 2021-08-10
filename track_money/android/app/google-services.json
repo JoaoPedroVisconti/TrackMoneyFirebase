@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "656969874950",
+    "project_id": "track-money-e2495",
+    "storage_bucket": "track-money-e2495.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656969874950:android:eb9d5909a425ada2114d87",
+        "android_client_info": {
+          "package_name": "com.visconti.track_money"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656969874950-h00vnhstjejf0dpuatcqcltjhde0i24s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt3mvbOn6sYvHeLp6-sju-YjHBhD-IS7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656969874950-h00vnhstjejf0dpuatcqcltjhde0i24s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
