@@ -11,7 +11,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel?>(context);
 
-    print('$user wrapper.dart-14');
+    print('${user?.uid} wrapper.dart-14');
 
     if (user == null) {
       return Authenticate();

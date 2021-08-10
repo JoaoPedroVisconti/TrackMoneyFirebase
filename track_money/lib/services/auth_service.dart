@@ -1,5 +1,6 @@
 import 'package:track_money/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:track_money/services/database_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,6 +36,7 @@ class AuthService {
           email: email, password: password);
 
       User? user = result.user;
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e);
@@ -49,13 +51,15 @@ class AuthService {
           email: email, password: password);
 
       User? user = result.user;
+
+      await DatabaseService(uid: user!.uid).createWallet('New Wallet', '', 0);
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e);
       return null;
     }
   }
-  
 
   // Logout user
   Future userLogout() async {
