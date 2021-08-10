@@ -12,8 +12,8 @@ class Home extends StatelessWidget {
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.account_balance_wallet_rounded),
-            label: Text('Wallets'),
+            icon: Icon(Icons.person),
+            label: Text('Logout'),
             onPressed: () async {},
             style: TextButton.styleFrom(primary: Colors.blue[50]),
           )
