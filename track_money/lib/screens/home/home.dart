@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:track_money/models/wallet_model.dart';
 import 'package:track_money/screens/home/wallet_list.dart';
+import 'package:track_money/screens/wallet/wallet_form.dart';
 import 'package:track_money/services/auth_service.dart';
 import 'package:track_money/services/database_service.dart';
 
 class Home extends StatelessWidget {
-
   final AuthService _auth = AuthService();
 
   @override
@@ -31,7 +31,16 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        body: WalletList(),
+        body: Container(child: WalletList()),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => WalletForm()));
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Colors.purple,         
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
       ),
     );
   }
