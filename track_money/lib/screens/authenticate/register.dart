@@ -17,6 +17,7 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
 
   // TextField State
+  String username = '';
   String email = '';
   String password = '';
   String error = '';
@@ -30,7 +31,7 @@ class _RegisterState extends State<Register> {
       });
 
       dynamic result =
-          await _auth.registerWithEmailAndPassword(email, password);
+          await _auth.registerWithEmailAndPassword(email, password, username);
 
       if (result == null) {
         setState(() {
@@ -64,57 +65,74 @@ class _RegisterState extends State<Register> {
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
               child: Form(
                 key: _formKey,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'Email'),
-                      validator: (val) => (val == null || val.isEmpty)
-                          ? 'Enter an email'
-                          : null,
-                      onChanged: (val) {
-                        setState(() {
-                          email = val;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'Password'),
-                      obscureText: true,
-                      validator: (val) => (val == null || val.length < 8)
-                          ? 'Enter a valid password'
-                          : null,
-                      onChanged: (val) {
-                        setState(() {
-                          password = val;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.purple[800]),
-                        child: Text('Register'),
-                        onPressed: () async {
-                          handleSubmit();
-                        }),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.red, fontSize: 14),
-                    )
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        decoration:
+                            textInputDecoration.copyWith(hintText: 'Email'),
+                        validator: (val) => (val == null || val.isEmpty)
+                            ? 'Enter an email'
+                            : null,
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        decoration:
+                            textInputDecoration.copyWith(hintText: 'Username'),
+                        validator: (val) => (val == null || val.isEmpty)
+                            ? 'Enter Username'
+                            : null,
+                        onChanged: (val) {
+                          setState(() {
+                            username = val;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        decoration:
+                            textInputDecoration.copyWith(hintText: 'Password'),
+                        obscureText: true,
+                        validator: (val) => (val == null || val.length < 8)
+                            ? 'Enter a valid password'
+                            : null,
+                        onChanged: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.purple[800]),
+                          child: Text('Register'),
+                          onPressed: () async {
+                            handleSubmit();
+                          }),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        error,
+                        style: TextStyle(color: Colors.red, fontSize: 14),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

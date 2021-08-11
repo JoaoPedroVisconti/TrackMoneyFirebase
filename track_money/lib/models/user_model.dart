@@ -4,6 +4,8 @@ class UserModel {
   UserModel({required this.uid});
 
   factory UserModel.initialData() {
-    return UserModel(uid: '');
+    return UserModel(
+      uid: '',
+    );
   }
 }
