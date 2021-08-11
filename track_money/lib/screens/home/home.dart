@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:track_money/models/wallet_model.dart';
 import 'package:track_money/screens/home/wallet_list.dart';
 import 'package:track_money/services/auth_service.dart';
 import 'package:track_money/services/database_service.dart';
@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot?>.value(
+    return StreamProvider<List<Wallet>?>.value(
       initialData: null,
       value: DatabaseService(uid: '').walletsStream,
       child: Scaffold(

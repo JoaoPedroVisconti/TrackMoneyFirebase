@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:track_money/models/wallet_model.dart';
 
 class DatabaseService {
   final String uid;
@@ -13,12 +14,22 @@ class DatabaseService {
     return await walletsCollection.doc(uid).set({
       'name': name,
       'description': description,
-      'balance': name,
+      'balance': balance,
     });
   }
 
+  // Wallet list from snapshot
+  List<Wallet> _walletListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Wallet(
+          name: doc.get('name') ?? '',
+          description: doc.get('description') ?? '',
+          balance: doc.get('balance') ?? 0);
+    }).toList();
+  }
+
   // Get Wallets stream
-  Stream<QuerySnapshot> get walletsStream {
-    return walletsCollection.snapshots();
+  Stream<List<Wallet>> get walletsStream {
+    return walletsCollection.snapshots().map(_walletListFromSnapshot);
   }
 }
