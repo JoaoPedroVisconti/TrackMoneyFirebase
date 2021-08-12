@@ -24,7 +24,7 @@ class WalletCard extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 60),
               child: Text(
-                wallet.balance.toString(),
+                '€ ' + wallet.balance.toStringAsFixed(2),
                 style: TextStyle(
                   color: Colors.blue,
                   fontSize: 48,

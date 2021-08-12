@@ -1,9 +1,15 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:track_money/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:track_money/services/database_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // Collection reference
+  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   // Create a User object base on Firebase
   UserModel? _userFromFirebaseUser(User? user) {
@@ -31,21 +37,34 @@ class AuthService {
   }
 
   // Register with email and password
-  Future registerWithEmailAndPassword(String email, String password, String username) async {
-    try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+  Future registerWithEmailAndPassword(
+      String email, String password, String username) async {
+    db.doc('/users/$username').get().then((doc) async {
+      if (!doc.exists) {
+        try {
+          UserCredential result = await _auth.createUserWithEmailAndPassword(
+              email: email, password: password);
 
-      User? user = result.user;
+          User? user = result.user;
 
-      // await DatabaseService(uid: user!.uid).createWallet('New Wallet', '', 0);
-      await DatabaseService(uid: user!.uid).createUser(user.uid, username, email);
+          // await DatabaseService(uid: user!.uid).createWallet('New Wallet', '', 0);
+          // await DatabaseService(uid: user!.uid).createUser(user.uid, username, email);
+          db.doc('/users/$username').set({
+            'userId': user!.uid,
+            'username': username,
+            'email': email,
+          });
 
-      return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e);
-      return null;
-    }
+          return _userFromFirebaseUser(user);
+        } catch (e) {
+          print(e);
+          return null;
+        }
+      } else {
+        print('Username already taken');
+        return null;
+      }
+    });
   }
 
   // Logout user
